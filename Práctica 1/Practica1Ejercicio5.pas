@@ -69,7 +69,7 @@ begin
 		read(arc, c);
 		writeln(texto, c.cod, ' ', c.precio, ' ', c.marca);
 		writeln(texto, c.stockDisp, ' ', c.stockMin, ' ', c.desc); // Una linea por cada string
-		writeln(texto, c.nom);
+		writeln(texto, c.nombre);
 	end;
 	writeln('Archivo de texto generado');
 	close(arc);
@@ -85,7 +85,7 @@ begin
 	begin
 		read(arc, c);
 		if (c.stockDisp < c.stockMin) then
-			writeln('Codigo: ', c.cod, 'Precio: ', c.precio, 'Marca: ', c.marca, 'Stock Disponible: ', c.stockDisp, 'Stock Minimo: ', c.stockMin, 'Descripcion: ', c.desc,'Nombre: ', c.nom);
+			writeln('Codigo: ', c.cod, 'Precio: ', c.precio, 'Marca: ', c.marca, 'Stock Disponible: ', c.stockDisp, 'Stock Minimo: ', c.stockMin, 'Descripcion: ', c.desc,'Nombre: ', c.nombre);
 	end;
 end;
 
@@ -98,6 +98,7 @@ begin
 	writeln('2 - Listar celulares con stock menor al stock minimo');
 	// writeln('3 - Listar celulares con descripcion proporcionada por el usuario'); No lo hago ya q es muy complicado y no se toma en parciales.
 	writeln('4 - Crear archivo de texto desde uno binario');
+	readln(o);
 	case o of
 		1: textoABinario(arc);
 		2: listarCelularesMenores(arc);

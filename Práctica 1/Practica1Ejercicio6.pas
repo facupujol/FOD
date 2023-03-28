@@ -56,7 +56,7 @@ begin
 		read(arc, c);
 		writeln(texto, c.cod, ' ', c.precio, ' ', c.marca);
 		writeln(texto, c.stockDisp, ' ', c.stockMin, ' ', c.desc); // Una linea por cada string
-		writeln(texto, c.nom);
+		writeln(texto, c.nombre);
 	end;
 	writeln('Archivo de texto generado');
 	close(arc);
@@ -72,47 +72,47 @@ begin
 	begin
 		read(arc, c);
 		if (c.stockDisp < c.stockMin) then
-			writeln('Codigo: ', c.cod, 'Precio: ', c.precio, 'Marca: ', c.marca, 'Stock Disponible: ', c.stockDisp, 'Stock Minimo: ', c.stockMin, 'Descripcion: ', c.desc,'Nombre: ', c.nom);
+			writeln('Codigo: ', c.cod, 'Precio: ', c.precio, 'Marca: ', c.marca, 'Stock Disponible: ', c.stockDisp, 'Stock Minimo: ', c.stockMin, 'Descripcion: ', c.desc,'Nombre: ', c.nombre);
 	end;
 end;
 
 procedure agregarCelulares (var arc: archivo); // Inciso 6A
 var
-    c: celular:
+    c: celular;
 begin
     reset(arc);
-    writeln('Ingrese el nombre del celular ("fin" para finalizar)'); readln(c.nom);
-    while ( c.nom <> 'fin') do
+    writeln('Ingrese el nombre del celular ("fin" para finalizar)'); readln(c.nombre);
+    while ( c.nombre <> 'fin') do
     begin
         writeln('Ingrese el codigo del celular'); readln(c.cod);
         writeln('Ingrese el precio del celular'); readln(c.precio);
         writeln('Ingrese la marca del celular'); readln(c.marca);
         writeln('Ingrese el stock disponible del celular'); readln(c.stockDisp);
         writeln('Ingrese el stock minimo del celular'); readln(c.stockMin);
-        writeln('Ingrese la descripcion del celular'); readln(c.descripcion);
+        writeln('Ingrese la descripcion del celular'); readln(c.desc);
         seek(arc, filesize(arc));  // Me posiciono al final del archivo para agregar al final el nuevo celular
         write(arc, c);
-        writeln('Ingrese el nombre del celular ("fin" para finalizar)'); readln(c.nom);
+        writeln('Ingrese el nombre del celular ("fin" para finalizar)'); readln(c.nombre);
     end;
 
 end;
 
 procedure modificarStock (var arc: archivo); // Inciso 6B
 var
-    num: integer; nom: string; c: celular; encontre: boolean;
+	nom: string; c: celular; encontre: boolean;
 begin
-    encontre: false;  // Declaro esta variable para que, una vez encontrado el celular, no siga recorriendo el archivo en vano.
+    encontre:= false;  // Declaro esta variable para que, una vez encontrado el celular, no siga recorriendo el archivo en vano.
     writeln('Ingrese el nombre del celular del cual desea modificar el stock.');
     readln(nom);
     reset(arc);
     while ((not eof(arc)) and (encontre = false)) do
     begin
         read(arc, c);
-        if (c.nom = nom) then
+        if (c.nombre = nom) then
         begin
             encontre:= true;
-            writeln('Ingrese el nombre del nuevo stock disponible'); readln(c.stockDisp);
-            writeln('Ingrese el nombre del nuevo stock minimo'); readln(c.stockMin); // Leo el nuevo stock y lo guardo en un registro de celular.
+            writeln('Ingrese el nombre del nuevo stock disponible (el actual es ', c.stockDisp, ')'); readln(c.stockDisp);
+            writeln('Ingrese el nombre del nuevo stock minimo(el actual es ', c.stockMin, ')'); readln(c.stockMin); // Leo el nuevo stock y lo guardo en un registro de celular.
             seek(arc, filePos(arc)-1); // Me vuelvo a posicionar en el celular que quiero modificar.
             write(arc, c); // Sobreescribo el registro de celular que quiero cambiar con el actualizado.
         end;
@@ -122,6 +122,8 @@ begin
 end;
 
 procedure exportarSinStock (var arc: archivo);
+var
+	texto: Text; c: celular;
 begin
     assign(texto, 'SinStock.txt');
 	reset(arc);
@@ -133,7 +135,7 @@ begin
         begin
 		    writeln(texto, c.cod, ' ', c.precio, ' ', c.marca);
 		    writeln(texto, c.stockDisp, ' ', c.stockMin, ' ', c.desc); // Una linea por cada string
-		    writeln(texto, c.nom);
+		    writeln(texto, c.nombre);
         end;
 	end;
 	writeln('Archivo de texto generado');
@@ -154,6 +156,7 @@ begin
     writeln('5 - Agregar celulares al archivo');
     writeln('6 - Modificar el stock de un celular');
     writeln('7 - Exportar celulares sin stock a un archivo de texto');
+	readln(o);
 	case o of
 		1: textoABinario(arc);
 		2: listarCelularesMenores(arc);
