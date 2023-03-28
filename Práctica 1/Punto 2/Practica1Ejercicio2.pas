@@ -8,42 +8,22 @@ program Practica1Ejercicio2;
 
 type
 
-	archivo: file of integer;
+	archivo = file of integer;
 	
-procedure carga (var arc: archivo);
-var
-	n_fisico: string[20]; num: integer;
-begin
-	writeln('Ingrese el nombre del archivo:');
-	readln(n_fisico);
 
-	assign(arc, n_fisico); // Conecto nombre logico con nombre fisico
-	rewrite(arc); // Creo el archivo
-
-	writeln('Ingrese un numero');
-	readln(num);
-
-	while (num <> 30000) do
-		begin
-		write(arc, num);
-		writeln('Ingrese un numero');
-		readln(num);
-		end;
-
-	close(arch_logico); // Cierro el archivo
-
-end;
 
 procedure recorrerArchivo (var arc: archivo);
 
 var
-	num, menores, total: integer; promedio: real;
+	num, menores, total: integer; promedio: real; nom: string;
 	
 begin
 
 	total:= 0;	menores:= 0;
+	writeln('Ingrese el nombre del archivo a recorrer');
+	readln(nom);
+	assign(arc, nom);
 	reset(arc);
-	
 	while (not eof(arc)) do
 	begin
 		read(arc, num);
@@ -66,7 +46,6 @@ var
 
 BEGIN
 
-	carga(arc);
 	recorrerArchivo(arc);
 	
 END.

@@ -10,6 +10,7 @@ ii. Listar en pantalla los empleados de a uno por línea.
 iii. Listar en pantalla empleados mayores de 70 años, próximos a jubilarse.
 NOTA: El nombre del archivo a crear o utilizar debe ser proporcionado por el usuario.}
 
+
 program Practica1Ejercicio3;
 
 type
@@ -21,7 +22,7 @@ type
 		dni: integer;
 		end;
 	
-	archivo: file of empleado;
+	archivo = file of empleado;
 
 procedure cargar (var arc: archivo);
 var
@@ -52,9 +53,9 @@ var
 begin
 	writeln('Ingrese el nombre del archivo:');
 	readln(nom);
-	assign(arch_ej3, nom);
-	rewrite(arch_ej3);
-	cargar(arch_ej3);
+	assign(arch, nom);
+	rewrite(arch);
+	cargar(arch);
 end;
 
 procedure listarNomAp (var arc: archivo);
@@ -66,7 +67,7 @@ begin
 	writeln('Ingrese el nombre del archivo a trabajar');
 	readln(nom);
 	assign(arc, nom);
-	rewrite(arc);
+	reset(arc);
 	writeln('Ingrese la cadena a buscar');
 	readln(cadena);
 
@@ -87,7 +88,7 @@ begin
 	writeln('Ingrese el nombre del archivo a trabajar');
 	readln(nom);
 	assign(arc, nom);
-	rewrite(arc);
+	reset(arc);
 	
 	while (not eof(arc)) do
 	begin
@@ -106,7 +107,7 @@ begin
 	writeln('Ingrese el nombre del archivo a trabajar');
 	readln(nom);
 	assign(arc, nom);
-	rewrite(arc);
+	reset(arc);
 
 	while (not eof(arc)) do
 	begin

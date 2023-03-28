@@ -6,7 +6,7 @@ se ingrese el número 30000, que no debe incorporarse al archivo.}
 program Practica1Ejercicio1;
 
 type
-  archivo: file of integer;
+  archivo = file of integer;
 
 var
 arch_logico: archivo; arch_fisico: string[20]; num: integer;
