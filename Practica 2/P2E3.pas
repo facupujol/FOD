@@ -14,6 +14,8 @@ program P2E3;
 
 const valorAlto = 9999;
 
+uses SysUtils;
+
 type
 
     producto = record
@@ -109,5 +111,3 @@ BEGIN
     binarioATexto(arc);
 
 END.
-
-// No me compila el IntToStr (no se por que)
