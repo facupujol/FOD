@@ -223,16 +223,13 @@ begin
     writeln('Ingrese el codigo del empleado a eliminar');
     readln(num);
     reset(arc);
-	read(arc, e);
-	pos:= 0;	// Variable que me va a decir la posicion del registro a borrar
-	while (e.num <> num) do	// Mientras no lo encuentro loopeo, leyendo empleados y sumando en uno la posicion
-	begin
-		read(arc, e);
-		pos:= pos + 1;
-	end;
 	seek(arc, fileSize(arc));	// Busco el ultimo registro
-	read(arc, aux);	// Lo guardo en la variable aux
-	seek(arc, pos);	// Me posiciono en la posicion del registro a borrar
+	read(arc, aux);		// Lo guardo en la variable aux
+	seek(arc, 0);	// Vuelvo al principio
+	read(arc, e);	// Empiezo a buscar al empleado
+	while (e.num <> num) do	// Mientras no lo encuentro loopeo, leyendo empleados
+		read(arc, e);
+	seek(arc, filePos(arc)-1);	// Me posiciono en la posicion del registro a borrar
 	write(arc, aux); // Sobreescribo el registro
 	seek(arc, fileSize(arc)-1); // Me posiciono en la anteultima posicion, asi queda afuera el registro que acabo de utilizar
 	truncate(arc); // Trunco dejando afuera el registro utilizado para la sobreescripcion 

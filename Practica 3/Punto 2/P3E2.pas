@@ -83,7 +83,7 @@ end;
 
 procedure eliminarMenoresAMil (var arc: archivo);
 var
-    nuevoApellido: string; a: asistente;
+    a: asistente;
 begin
     reset(arc);
     leer(arc, a);
@@ -91,8 +91,7 @@ begin
     begin
         if (a.nro < 1000) then
         begin
-            nuevoApellido:= '@' + Copy(a.apellido, 1, Length(a.apellido));
-            a.apellido:= nuevoApellido;
+            Insert('@', a.apellido, 1);
             seek(arc, filePos(arc)-1);
             write(arc, a);
         end;
