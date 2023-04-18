@@ -133,18 +133,24 @@ begin
     assign(arc, nom);
     writeln('El codigo de novela no sera modificado y sera utilizado para buscar la novela a modificar');
     leerNovela(n);
-    reset(arc);
-    leer(arc, aux);
-    while ((aux.codigo <> n.codigo)and(aux.codigo <> valorAlto))do
-        leer(arc, aux);
-    if (aux.codigo = n.codigo) then
+    if (n.codigo > 0) then
     begin
-        seek(arc, filePos(arc)-1);
-        write(arc, n);
+        reset(arc);
+        leer(arc, aux); // Salteo la cabecera
+        leer(arc, aux);
+        while ((aux.codigo <> n.codigo)and(aux.codigo <> valorAlto))do
+            leer(arc, aux);
+        if (aux.codigo = n.codigo) then
+        begin
+            seek(arc, filePos(arc)-1);
+            write(arc, n);
+        end
+        else
+            writeln('No se encontro la novela');
+        close(arc);
     end
     else
-        writeln('No se encontro la novela');
-    close(arc);
+        writeln('Ingrese un codigo valido');
 end;
         
 procedure eliminarNovela(var arc: archivo);
@@ -235,4 +241,4 @@ BEGIN
     listarMenu(arc);
 END.
 
-// Compila bien, el unico metodo que no funciona bien es el modificarNovela
+// Funciona perfecto
