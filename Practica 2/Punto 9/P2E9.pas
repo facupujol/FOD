@@ -41,7 +41,6 @@ var
     reg: mesa;
     provActual, localidadActual, totalVotos, totalProvincia, totalLocalidad: integer;
 begin
-    assign(arc, 'votos');   // Asumo que lo tengo
     reset(arc);
     leer(arc, reg);
     totalVotos:= 0;
@@ -72,6 +71,7 @@ end;
 var
     arc: archivo;
 begin
+    assign(arc, 'votos');   // Asumo que lo tengo
     informarVotos(arc);
 END.
 

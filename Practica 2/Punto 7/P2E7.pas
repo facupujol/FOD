@@ -47,14 +47,12 @@ begin
         reg.codigo:= valorAlto;
 end;
 
-procedure actualizarMaestro (var m: maestro);
+procedure actualizarMaestro (var m: maestro; var d: detalle);
 var
-    d: detalle; v: venta; p: producto;
+    v: venta; p: producto;
     totalVentas, codigoActual: integer;
 begin
-    assign(d, 'detalle');
     reset(d);
-    assign(m, 'maestro');
     reset(m);
     leerDetalle(d, v);
     while (v.codigo <> valorAlto) do
@@ -99,9 +97,11 @@ begin
 end;
 
 var
-    m: maestro;
+    m: maestro; d: detalle;
 begin
-    actualizarMaestro(m);
+    assign(m, 'maestro');
+    assign(d, 'detalle');
+    actualizarMaestro(m, d);
     listarStockInsuficiente(m);
 END.
 

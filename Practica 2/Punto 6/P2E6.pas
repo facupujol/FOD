@@ -93,15 +93,13 @@ begin
         leerDetalle(archivos[indiceMin], registros[indiceMin]);
 end;
 
-procedure actualizarMaestro (var maestro: archivoMaestro);
+procedure actualizarMaestro (var maestro: archivoMaestro; var detalles: vectorArchivos);
 var
     i, totalFallecidos, totalRecuperados, activos, nuevos, locActual, cepaActual: integer; 
     min: regDetalle; regM: regMaestro;
-    detalles: vectorArchivos; registros: vectorRegistros;
+    registros: vectorRegistros;
 begin
-    assign(maestro, 'maestro');
     reset(maestro);
-    inicializarDetalles(detalles);
     for i:= 1 to N do
         leerDetalle(detalles[i], registros[i]);
     minimo(detalles, registros, min);
@@ -163,9 +161,11 @@ begin
 end;
 
 var
-    maestro: archivoMaestro;
+    maestro: archivoMaestro; detalles: vectorArchivos;
 begin
-    actualizarMaestro(maestro);
+    assign(maestro, 'maestro');
+    inicializarDetalles(detalles);
+    actualizarMaestro(maestro, detalles);
     informarLocalidades(maestro);
 END.
 

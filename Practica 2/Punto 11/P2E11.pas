@@ -79,14 +79,12 @@ begin
         leer(archivos[indiceMin], registros[indiceMin]);
 end;
 
-procedure actualizarMaestro (var m: archivoMaestro);
+procedure actualizarMaestro (var m: archivoMaestro; var detalles: vectorArchivos);
 var
     i, totalEncuestadosProvincia, totalAlfabetizadosProvincia: integer; regM: regMaestro; min: regDetalle;
     provinciaActual: string[20];
-    detalles: vectorArchivos; registros: vectorRegistros;
+    registros: vectorRegistros;
 begin
-    assign(m, 'maestro');
-    inicializarDetalles(detalles);
     for i:= 1 to N do
         leer(detalles[i], registros[i]);
     minimo(detalles, registros, min);
@@ -115,9 +113,11 @@ begin
 end;
         
 var
-    m: archivoMaestro;
+    m: archivoMaestro; d: vectorArchivos;
 begin
-    actualizarMaestro(m);
+    assign(m, 'maestro');
+    inicializarDetalles(d);
+    actualizarMaestro(m, d);
 END.
 
 // Compila, pero no funciona por falta de archivos
